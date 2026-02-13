@@ -1,2 +1,4 @@
-id,nombre,email,telefono,direccion,activo,tipo_cliente,fecha_registro,fecha_actualizacion,limite_credito,puntos_fidelidad
-81e91fd3-6539-4b80-af04-cd8326364e02,Test User,test13@example.com,+56 9 4455 6677,Calle Test 123 Santiago,1,Regular,2026-02-13T12:23:02.398582,2026-02-13T12:23:02.403467,500000.0,0
+id,nombre,email,telefono,direccion,activo,tipo_cliente,fecha_registro,fecha_actualizacion,rut_empresa,razon_social,rubro,contacto_comercial,cantidad_empleados,descuento_volumen,asesor_dedicado,nivel_premium,descuento,limite_credito,puntos_fidelidad
+8bcd67cb-eafd-4295-ae03-1727e4b798be,Carlos Díaz,carlos@empresa.cl,+56 9 6677 8899,"Apoquindo 1000, Las Condes",1,Corporativo,2026-02-13T12:23:30.327671,2026-02-13T12:23:30.341455,76.124.890-1,TechCorp SpA,No especificado,,100,0.15,,,,,
+1b32761a-1e96-4d31-bb1f-f81e38018981,María López,maria@example.com,+56 9 5566 7788,"Los Leones 789, Providencia",1,Premium,2026-02-13T12:23:30.324416,2026-02-13T12:23:30.342700,,,,,,,Sin asignar,Platinum,0.15,,
+6b9eb0b7-71ee-4115-9cd8-311b84d8c3d0,Juan Pérez,juan@example.com,+56 9 4455 6677,"Av. Siempre Viva 123, Santiago",1,Regular,2026-02-13T12:23:30.308697,2026-02-13T12:23:30.343372,,,,,,,,,,500000.0,0

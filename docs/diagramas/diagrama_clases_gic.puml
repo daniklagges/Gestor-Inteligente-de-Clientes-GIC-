@@ -1,0 +1,235 @@
+@startuml diagrama_clases_gic
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classHeaderBackgroundColor #2563EB
+skinparam classHeaderFontColor white
+skinparam classBorderColor #D1D5DB
+skinparam arrowColor #6B7280
+skinparam packageBorderColor #E5E7EB
+skinparam packageBackgroundColor #F9FAFB
+skinparam groupInheritance 2
+
+title Diagrama UML de Clases - Gestor Inteligente de Clientes (GIC)\nEmpresa SolutionTech - Febrero 2026
+
+package "src.models" <<Rectangle>> {
+
+    abstract class Cliente {
+        - _id: str
+        - _nombre: str
+        - _email: str
+        - _telefono: str
+        - _direccion: str
+        - _activo: bool
+        - _fecha_registro: str
+        - _fecha_actualizacion: str
+        --
+        + {property} id: str
+        + {property} nombre: str
+        + {property} email: str
+        + {property} telefono: str
+        + {property} direccion: str
+        + {property} activo: bool
+        + {property} tipo_cliente: str
+        --
+        + activar(): void
+        + desactivar(): void
+        + calcular_descuento(monto: float): float
+        + to_dict(): dict
+        + {static} from_dict(datos: dict): Cliente
+        + __str__(): str
+        + __eq__(other): bool
+        + __hash__(): int
+    }
+
+    class ClienteRegular {
+        - _limite_credito: float
+        - _puntos_fidelidad: int
+        + {static} DESCUENTO_BASE: float = 0.0
+        + {static} LIMITE_CREDITO_DEFAULT: float
+        --
+        + agregar_puntos(puntos: int): void
+        + calcular_descuento(monto: float): float
+        + to_dict(): dict
+        + {static} from_dict(datos: dict): ClienteRegular
+    }
+
+    class ClientePremium {
+        - _descuento: float
+        - _asesor_dedicado: str
+        - _nivel_premium: str
+        + {static} DESCUENTO_BASE: float = 0.10
+        + {static} NIVELES_VALIDOS: tuple
+        --
+        + subir_nivel(): void
+        + calcular_descuento(monto: float): float
+        - _calcular_descuento_por_nivel(): float
+        + to_dict(): dict
+        + {static} from_dict(datos: dict): ClientePremium
+    }
+
+    class ClienteCorporativo {
+        - _rut_empresa: str
+        - _razon_social: str
+        - _rubro: str
+        - _contacto_comercial: str
+        - _cantidad_empleados: int
+        - _descuento_volumen: float
+        + {static} DESCUENTO_BASE: float = 0.05
+        --
+        + actualizar_empleados(cantidad: int): void
+        + calcular_descuento(monto: float): float
+        - _calcular_descuento_volumen(): float
+        + to_dict(): dict
+        + {static} from_dict(datos: dict): ClienteCorporativo
+    }
+}
+
+package "src.services" <<Rectangle>> {
+    class ClienteService {
+        - db: SQLiteRepository
+        - json_repo: JSONRepository
+        - csv_repo: CSVRepository
+        --
+        + crear_cliente(tipo: str, **datos): Cliente
+        + obtener_cliente(id: str): Cliente
+        + buscar_por_email(email: str): Cliente
+        + listar_clientes(...): List<Cliente>
+        + actualizar_cliente(id: str, **datos): Cliente
+        + eliminar_cliente(id: str): bool
+        + desactivar_cliente(id: str): bool
+        + exportar_json(): str
+        + exportar_csv(): str
+        + importar_json(): int
+        + estadisticas(): dict
+    }
+}
+
+package "src.repositories" <<Rectangle>> {
+    class SQLiteRepository {
+        - _CLASES: dict
+        --
+        + crear(cliente: Cliente): Cliente
+        + obtener_por_id(id: str): Cliente
+        + obtener_por_email(email: str): Cliente
+        + listar(...): List<Cliente>
+        + actualizar(cliente: Cliente): Cliente
+        + eliminar(id: str): bool
+        + desactivar(id: str): bool
+        + contar(tipo: str): int
+        - _row_to_cliente(datos: dict): Cliente
+    }
+
+    class JSONRepository {
+        - ruta: str
+        --
+        + exportar(clientes: List<Cliente>): str
+        + importar(): List<Cliente>
+    }
+
+    class CSVRepository {
+        - ruta: str
+        --
+        + exportar(clientes: List<Cliente>): str
+        + importar(): List<Cliente>
+    }
+}
+
+package "src.database" <<Rectangle>> {
+    class DatabaseConnection {
+        - db_path: str
+        - connection: Connection
+        --
+        + __enter__(): Connection
+        + __exit__(...): bool
+    }
+}
+
+package "src.exceptions" <<Rectangle>> {
+    class GICValidationError {
+        + mensaje: str
+        + campo: str
+    }
+    class EmailInvalidoError
+    class TelefonoInvalidoError
+    class NombreInvalidoError
+    class RutInvalidoError
+    class DireccionInvalidaError
+
+    class GICDatabaseError {
+        + mensaje: str
+    }
+    class RegistroNoEncontradoError
+    class RegistroDuplicadoError
+
+    class GICAPIError {
+        + mensaje: str
+        + codigo: int
+    }
+    class APIExternaError
+    class APITimeoutError
+}
+
+package "src.integrations" <<Rectangle>> {
+    class IdentityAPI <<module>> {
+        + validar_identidad(nombre, email, rut): dict
+        - _validacion_local(nombre, email, rut): dict
+    }
+
+    class EmailAPI <<module>> {
+        + enviar_email_bienvenida(nombre, email, tipo): dict
+    }
+}
+
+package "src.utils" <<Rectangle>> {
+    class Validators <<module>> {
+        + validar_email(email: str): str
+        + validar_telefono(telefono: str): str
+        + validar_direccion(direccion: str): str
+        + validar_nombre(nombre: str): str
+        + validar_rut(rut: str): str
+    }
+}
+
+' === HERENCIA ===
+Cliente <|-- ClienteRegular
+Cliente <|-- ClientePremium
+Cliente <|-- ClienteCorporativo
+
+GICValidationError <|-- EmailInvalidoError
+GICValidationError <|-- TelefonoInvalidoError
+GICValidationError <|-- NombreInvalidoError
+GICValidationError <|-- RutInvalidoError
+GICValidationError <|-- DireccionInvalidaError
+
+GICDatabaseError <|-- RegistroNoEncontradoError
+GICDatabaseError <|-- RegistroDuplicadoError
+
+GICAPIError <|-- APIExternaError
+GICAPIError <|-- APITimeoutError
+
+' === COMPOSICIÓN / AGREGACIÓN ===
+ClienteService *-- SQLiteRepository
+ClienteService *-- JSONRepository
+ClienteService *-- CSVRepository
+
+SQLiteRepository --> DatabaseConnection : usa
+
+' === DEPENDENCIAS ===
+ClienteService ..> Cliente : crea/gestiona
+SQLiteRepository ..> Cliente : persiste
+Cliente ..> Validators : valida con
+Validators ..> GICValidationError : lanza
+SQLiteRepository ..> GICDatabaseError : lanza
+IdentityAPI ..> GICAPIError : lanza
+EmailAPI ..> GICAPIError : lanza
+
+legend right
+  |= Relación |= Significado |
+  | <|-- | Herencia |
+  | *-- | Composición |
+  | --> | Asociación |
+  | ..> | Dependencia |
+endlegend
+
+@enduml
