@@ -1,0 +1,4 @@
+id,nombre,email,telefono,direccion,activo,tipo_cliente,fecha_registro,fecha_actualizacion,rut_empresa,razon_social,rubro,contacto_comercial,cantidad_empleados,descuento_volumen,asesor_dedicado,nivel_premium,descuento,limite_credito,puntos_fidelidad
+eccd83f7-53ee-4bea-b14b-7d17fa5bc511,Carlos Díaz,carlos@empresa.cl,+56 9 6677 8899,"Apoquindo 1000, Las Condes",1,Corporativo,2026-02-13T10:57:55.763803,2026-02-13T10:57:55.776218,76.124.890-1,TechCorp SpA,No especificado,,100,0.15,,,,,
+139e59fb-6b73-46f4-9099-2ce71d04c1c1,María López,maria@example.com,+56 9 5566 7788,"Los Leones 789, Providencia",1,Premium,2026-02-13T10:57:55.760693,2026-02-13T10:57:55.776825,,,,,,,Sin asignar,Platinum,0.15,,
+c4b73cdb-6c26-4999-ab3a-64a2f81bb7ca,Juan Pérez,juan@example.com,+56 9 4455 6677,"Av. Siempre Viva 123, Santiago",1,Regular,2026-02-13T10:57:55.745368,2026-02-13T10:57:55.777383,,,,,,,,,,500000.0,0

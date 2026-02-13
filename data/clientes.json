@@ -1,0 +1,46 @@
+[
+  {
+    "id": "eccd83f7-53ee-4bea-b14b-7d17fa5bc511",
+    "nombre": "Carlos Díaz",
+    "email": "carlos@empresa.cl",
+    "telefono": "+56 9 6677 8899",
+    "direccion": "Apoquindo 1000, Las Condes",
+    "activo": 1,
+    "tipo_cliente": "Corporativo",
+    "fecha_registro": "2026-02-13T10:57:55.763803",
+    "fecha_actualizacion": "2026-02-13T10:57:55.773362",
+    "rut_empresa": "76.124.890-1",
+    "razon_social": "TechCorp SpA",
+    "rubro": "No especificado",
+    "contacto_comercial": "",
+    "cantidad_empleados": 100,
+    "descuento_volumen": 0.15
+  },
+  {
+    "id": "139e59fb-6b73-46f4-9099-2ce71d04c1c1",
+    "nombre": "María López",
+    "email": "maria@example.com",
+    "telefono": "+56 9 5566 7788",
+    "direccion": "Los Leones 789, Providencia",
+    "activo": 1,
+    "tipo_cliente": "Premium",
+    "fecha_registro": "2026-02-13T10:57:55.760693",
+    "fecha_actualizacion": "2026-02-13T10:57:55.773988",
+    "asesor_dedicado": "Sin asignar",
+    "nivel_premium": "Platinum",
+    "descuento": 0.15
+  },
+  {
+    "id": "c4b73cdb-6c26-4999-ab3a-64a2f81bb7ca",
+    "nombre": "Juan Pérez",
+    "email": "juan@example.com",
+    "telefono": "+56 9 4455 6677",
+    "direccion": "Av. Siempre Viva 123, Santiago",
+    "activo": 1,
+    "tipo_cliente": "Regular",
+    "fecha_registro": "2026-02-13T10:57:55.745368",
+    "fecha_actualizacion": "2026-02-13T10:57:55.774601",
+    "limite_credito": 500000.0,
+    "puntos_fidelidad": 0
+  }
+]
